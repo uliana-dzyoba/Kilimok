@@ -1,0 +1,24 @@
+# Сайт віддається з кореня проєкту (без окремої public/), тому службові
+# каталоги закриваємо тут. Файли всередині них додатково захищені
+# перевіркою defined('KILIMOK') на першому рядку.
+
+RedirectMatch 404 ^/(lib|data|partials|sections)(/|$)
+RedirectMatch 404 /\.(git|htaccess)
+
+DirectoryIndex index.php
+
+<IfModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE text/html text/css application/javascript image/svg+xml
+</IfModule>
+
+<IfModule mod_expires.c>
+    ExpiresActive On
+    ExpiresByType text/css "access plus 1 year"
+    ExpiresByType application/javascript "access plus 1 year"
+    ExpiresByType image/svg+xml "access plus 1 month"
+</IfModule>
+
+<IfModule mod_headers.c>
+    Header set X-Content-Type-Options "nosniff"
+    Header set Referrer-Policy "strict-origin-when-cross-origin"
+</IfModule>

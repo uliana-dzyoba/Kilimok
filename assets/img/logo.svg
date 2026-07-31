@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 112" width="360" height="112" role="img" aria-label="Килимок — оренда килимів">
+  <text x="6" y="50" font-family="system-ui, 'Segoe UI', Arial, sans-serif" font-size="46"
+        font-weight="800" fill="#4a4542" letter-spacing="1">КИЛИМОК</text>
+
+  <!-- Згорнутий килим як розділова смуга — мотив із листівки -->
+  <g transform="translate(24 68)">
+    <path d="M0 -9 H316 a9 9 0 0 1 0 18 H0 z" fill="#b23029"/>
+    <ellipse cx="316" cy="0" rx="5" ry="9" fill="#c9453d"/>
+    <ellipse cx="0" cy="0" rx="10" ry="10" fill="#8d241e"/>
+    <ellipse cx="0" cy="0" rx="3.5" ry="3.5" fill="#f7f4f2"/>
+  </g>
+
+  <text x="34" y="104" font-family="system-ui, 'Segoe UI', Arial, sans-serif" font-size="29"
+        font-weight="700" fill="#b23029">оренда килимів</text>
+</svg>

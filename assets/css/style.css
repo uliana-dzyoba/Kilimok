@@ -1,0 +1,937 @@
+/* Килимок — mobile-first, без збірки. Порядок: змінні, база, компоненти, брейкпойнти. */
+
+:root {
+    --red: #b23029;
+    --red-dark: #8d241e;
+    --red-tint: #fdf1ef;
+    --ink: #1f1c1b;
+    --ink-soft: #4a4542;
+    --line: #e2dcd8;
+    --surface: #ffffff;
+    --surface-muted: #f7f4f2;
+
+    --container: 1120px;
+    --gap: 1rem;
+    --gap-lg: 1.5rem;
+    --section-y: 2.75rem;
+    --radius: 10px;
+    --shadow: 0 1px 2px rgb(31 28 27 / 6%), 0 6px 18px rgb(31 28 27 / 6%);
+
+    --per-view: 3; /* логотипів у слайді; змінюється в медіа-запитах */
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 5rem;
+    -webkit-text-size-adjust: 100%;
+}
+
+body {
+    margin: 0;
+    font-family: system-ui, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    font-size: 1rem;
+    line-height: 1.6;
+    color: var(--ink);
+    background: var(--surface);
+    overflow-x: hidden;
+}
+
+h1, h2, h3 {
+    margin: 0 0 0.5em;
+    line-height: 1.2;
+    text-wrap: balance;
+}
+
+p {
+    margin: 0 0 1em;
+}
+
+img,
+svg {
+    max-width: 100%;
+    height: auto;
+}
+
+a {
+    color: var(--red-dark);
+}
+
+:focus-visible {
+    outline: 3px solid var(--red);
+    outline-offset: 2px;
+    border-radius: 4px;
+}
+
+.container {
+    width: 100%;
+    max-width: var(--container);
+    margin-inline: auto;
+    padding-inline: var(--gap);
+}
+
+.skip-link {
+    position: absolute;
+    left: -9999px;
+    top: 0;
+    z-index: 100;
+    padding: 0.75rem 1rem;
+    background: var(--red);
+    color: #fff;
+    text-decoration: none;
+}
+
+.skip-link:focus {
+    left: 0;
+}
+
+.nowrap {
+    white-space: nowrap;
+}
+
+.svg-sprite {
+    position: absolute;
+    width: 0;
+    height: 0;
+    overflow: hidden;
+}
+
+/* --- Шапка ------------------------------------------------------------- */
+
+.site-header {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    background: rgb(255 255 255 / 96%);
+    backdrop-filter: blur(6px);
+    border-bottom: 1px solid var(--line);
+}
+
+.site-header__inner {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    min-height: 4rem;
+    flex-wrap: wrap;
+}
+
+.brand {
+    display: inline-flex;
+    margin-right: auto;
+}
+
+.brand__mark {
+    width: 145px;
+    height: auto;
+    display: block;
+}
+
+.nav {
+    order: 3;
+    width: 100%;
+}
+
+.nav__toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.4rem 0;
+    font-weight: 600;
+    color: var(--ink-soft);
+    cursor: pointer;
+    list-style: none;
+}
+
+.nav__toggle::-webkit-details-marker {
+    display: none;
+}
+
+.nav__toggle-bars,
+.nav__toggle-bars::before,
+.nav__toggle-bars::after {
+    display: block;
+    width: 20px;
+    height: 2px;
+    background: currentColor;
+    content: "";
+}
+
+.nav__toggle-bars {
+    position: relative;
+}
+
+.nav__toggle-bars::before {
+    position: absolute;
+    top: -6px;
+}
+
+.nav__toggle-bars::after {
+    position: absolute;
+    top: 6px;
+}
+
+.nav__list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    margin: 0 0 0.75rem;
+    padding: 0;
+    list-style: none;
+}
+
+.nav__link {
+    display: block;
+    padding: 0.5rem 0;
+    color: var(--ink);
+    text-decoration: none;
+    border-bottom: 1px solid var(--line);
+}
+
+.nav__link:hover,
+.nav__link:focus-visible {
+    color: var(--red);
+}
+
+/* --- Кнопки ------------------------------------------------------------ */
+
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.15rem;
+    border: 2px solid transparent;
+    border-radius: var(--radius);
+    font-weight: 700;
+    line-height: 1.2;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.btn--primary {
+    background: var(--red);
+    border-color: var(--red);
+    color: #fff;
+}
+
+.btn--primary:hover,
+.btn--primary:focus-visible {
+    background: var(--red-dark);
+    border-color: var(--red-dark);
+}
+
+.btn--ghost {
+    border-color: var(--line);
+    color: var(--ink);
+    background: var(--surface);
+}
+
+.btn--ghost:hover,
+.btn--ghost:focus-visible {
+    border-color: var(--red);
+    color: var(--red-dark);
+}
+
+.btn--phone {
+    padding: 0.45rem 0.8rem;
+    font-size: 0.9rem;
+    background: var(--red-tint);
+    color: var(--red-dark);
+    white-space: nowrap;
+}
+
+/* --- Секції ------------------------------------------------------------ */
+
+.section {
+    padding-block: var(--section-y);
+}
+
+.section--muted {
+    background: var(--surface-muted);
+}
+
+.section__title {
+    font-size: clamp(1.5rem, 1.2rem + 1.4vw, 2rem);
+}
+
+.section__lead {
+    max-width: 62ch;
+    font-size: 1.05rem;
+    color: var(--ink-soft);
+}
+
+.section__text {
+    max-width: 68ch;
+    color: var(--ink-soft);
+}
+
+/* --- Герой ------------------------------------------------------------- */
+
+.hero {
+    padding-block: 2.5rem 2rem;
+    background:
+        radial-gradient(120% 90% at 85% 0%, var(--red-tint) 0%, transparent 60%),
+        var(--surface);
+}
+
+.hero__eyebrow {
+    margin-bottom: 0.5rem;
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--red);
+}
+
+.hero__title {
+    font-size: clamp(1.75rem, 1.2rem + 2.6vw, 3rem);
+}
+
+.hero__lead {
+    max-width: 55ch;
+    font-size: 1.1rem;
+    color: var(--ink-soft);
+}
+
+.hero__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-bottom: 2rem;
+}
+
+.pictograms {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--gap);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.pictogram {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.9rem 0.5rem;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+}
+
+.pictogram__icon {
+    width: 40px;
+    height: 40px;
+    color: var(--red);
+}
+
+.pictogram__label {
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+}
+
+/* --- Картки ------------------------------------------------------------ */
+
+.cards {
+    display: grid;
+    gap: var(--gap);
+    margin-top: 1.5rem;
+}
+
+.card {
+    padding: 1.25rem;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-left: 4px solid var(--red);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+}
+
+.card__title {
+    font-size: 1.1rem;
+}
+
+.card__text {
+    margin: 0;
+    color: var(--ink-soft);
+}
+
+/* --- Список місць застосування ----------------------------------------- */
+
+.checklist {
+    display: grid;
+    gap: 0.6rem;
+    margin: 1.5rem 0 0;
+    padding: 0;
+    list-style: none;
+}
+
+.checklist__item {
+    position: relative;
+    padding-left: 2rem;
+    color: var(--ink-soft);
+}
+
+.checklist__item::before {
+    position: absolute;
+    left: 0;
+    top: 0.15em;
+    display: grid;
+    place-items: center;
+    width: 1.35rem;
+    height: 1.35rem;
+    background: var(--red);
+    border-radius: 50%;
+    color: #fff;
+    font-size: 0.8rem;
+    line-height: 1;
+    content: "✓";
+}
+
+/* --- Розміри ----------------------------------------------------------- */
+
+.sizes {
+    margin-top: 1.75rem;
+    padding: 1.25rem;
+    background: var(--surface-muted);
+    border-radius: var(--radius);
+}
+
+.sizes__title {
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--ink-soft);
+}
+
+.sizes__list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin: 0 0 0.9rem;
+    padding: 0;
+    list-style: none;
+}
+
+.sizes__item {
+    padding: 0.35rem 0.75rem;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    font-weight: 700;
+    font-size: 0.95rem;
+    white-space: nowrap;
+}
+
+.sizes__note {
+    margin: 0;
+    font-size: 0.95rem;
+    color: var(--ink-soft);
+}
+
+/* --- Галерея ----------------------------------------------------------- */
+
+.gallery {
+    display: grid;
+    gap: var(--gap);
+    margin: 1.5rem 0 0;
+    padding: 0;
+    list-style: none;
+}
+
+.gallery__figure {
+    margin: 0;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    overflow: hidden;
+    box-shadow: var(--shadow);
+}
+
+.gallery__image {
+    display: block;
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    background: var(--surface-muted);
+}
+
+.gallery__caption {
+    padding: 0.7rem 0.9rem;
+    font-size: 0.9rem;
+    color: var(--ink-soft);
+    border-top: 1px solid var(--line);
+}
+
+/* --- Карусель логотипів ------------------------------------------------ */
+
+.carousel {
+    position: relative;
+    margin-top: 1.5rem;
+}
+
+.carousel__track {
+    display: flex;
+    gap: var(--gap);
+    margin: 0;
+    padding: 0 0 0.5rem;
+    list-style: none;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    scrollbar-width: thin;
+    overscroll-behavior-x: contain;
+}
+
+.carousel__item {
+    flex: 0 0 calc((100% - (var(--per-view) - 1) * var(--gap)) / var(--per-view));
+    scroll-snap-align: start;
+}
+
+.carousel__logo {
+    display: block;
+    width: 100%;
+    aspect-ratio: 3 / 2;
+    object-fit: contain;
+    padding: 0.6rem;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    filter: grayscale(1);
+    opacity: 0.85;
+    transition: filter 0.2s, opacity 0.2s;
+}
+
+.carousel__logo:hover {
+    filter: grayscale(0);
+    opacity: 1;
+}
+
+/* JS ховає нативний скролбар лише коли додано кнопки та крапки */
+.carousel--enhanced .carousel__track {
+    scrollbar-width: none;
+}
+
+.carousel--enhanced .carousel__track::-webkit-scrollbar {
+    display: none;
+}
+
+.carousel__controls {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    margin-top: 0.9rem;
+}
+
+.carousel__btn {
+    display: grid;
+    place-items: center;
+    width: 2.75rem;
+    height: 2.75rem;
+    padding: 0;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 50%;
+    color: var(--ink);
+    font-size: 1.1rem;
+    line-height: 1;
+    cursor: pointer;
+}
+
+.carousel__btn:hover:not(:disabled) {
+    border-color: var(--red);
+    color: var(--red);
+}
+
+.carousel__btn:disabled {
+    opacity: 0.35;
+    cursor: default;
+}
+
+.carousel__dots {
+    display: flex;
+    gap: 0.4rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.carousel__dot {
+    width: 0.65rem;
+    height: 0.65rem;
+    padding: 0;
+    background: var(--line);
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.carousel__dot[aria-current="true"] {
+    background: var(--red);
+    transform: scale(1.25);
+}
+
+/* --- Прайс ------------------------------------------------------------- */
+
+.table-wrap {
+    margin-top: 1.5rem;
+    overflow-x: auto;
+}
+
+.pricing {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.pricing__caption {
+    margin-bottom: 0.75rem;
+    font-size: 0.9rem;
+    color: var(--ink-soft);
+    text-align: left;
+}
+
+/* Мобільна розкладка: одна картка на розмір, підписи з data-label */
+.pricing thead {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+}
+
+.pricing tr {
+    display: block;
+    margin-bottom: var(--gap);
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    overflow: hidden;
+    box-shadow: var(--shadow);
+}
+
+.pricing__size {
+    display: block;
+    padding: 0.6rem 1rem;
+    background: var(--red);
+    color: #fff;
+    font-size: 1.05rem;
+    text-align: left;
+}
+
+.pricing__size::after {
+    content: " см";
+    font-weight: 400;
+    opacity: 0.85;
+}
+
+.pricing__cell {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 0.75rem;
+    padding: 0.5rem 1rem;
+    border-top: 1px solid var(--line);
+    font-weight: 700;
+    text-align: right;
+}
+
+.pricing__cell::before {
+    content: attr(data-label);
+    font-weight: 400;
+    font-size: 0.9rem;
+    color: var(--ink-soft);
+    text-align: left;
+}
+
+.notes {
+    margin: 1.25rem 0 1.5rem;
+    padding-left: 1.1rem;
+    color: var(--ink-soft);
+    font-size: 0.95rem;
+}
+
+.notes__item {
+    margin-bottom: 0.35rem;
+}
+
+.prices__cta {
+    margin: 0;
+}
+
+/* --- Підвал ------------------------------------------------------------ */
+
+.site-footer {
+    padding-block: var(--section-y);
+    background: var(--ink);
+    color: #f2eeec;
+}
+
+.site-footer .section__title,
+.site-footer .section__lead {
+    color: #fff;
+}
+
+.site-footer .section__lead {
+    opacity: 0.8;
+}
+
+.contacts {
+    display: grid;
+    gap: 1.25rem;
+    margin-top: 1.5rem;
+}
+
+.contacts__label {
+    margin-bottom: 0.35rem;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    opacity: 0.65;
+}
+
+.contacts__list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.contacts__link {
+    color: #fff;
+    text-decoration: none;
+    border-bottom: 1px solid rgb(255 255 255 / 30%);
+}
+
+.contacts__link:hover,
+.contacts__link:focus-visible {
+    border-bottom-color: #fff;
+}
+
+.contacts__link--strong {
+    font-size: 1.25rem;
+    font-weight: 700;
+}
+
+.site-footer__legal {
+    margin: 2rem 0 0;
+    padding-top: 1rem;
+    border-top: 1px solid rgb(255 255 255 / 15%);
+    font-size: 0.85rem;
+    opacity: 0.7;
+}
+
+/* --- Брейкпойнти -------------------------------------------------------- */
+
+@media (min-width: 40em) { /* 640px */
+    :root {
+        --per-view: 4;
+        --section-y: 3.5rem;
+    }
+
+    .pictograms {
+        grid-template-columns: repeat(4, 1fr);
+    }
+
+    .cards {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .checklist {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .gallery {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .contacts {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (min-width: 45em) { /* 720px — прайс стає таблицею */
+    .pricing thead {
+        position: static;
+        width: auto;
+        height: auto;
+        margin: 0;
+        clip-path: none;
+        white-space: normal;
+    }
+
+    .pricing tr {
+        display: table-row;
+        margin: 0;
+        background: none;
+        border: none;
+        border-radius: 0;
+        box-shadow: none;
+    }
+
+    .pricing thead th {
+        padding: 0.6rem 0.75rem;
+        background: var(--red);
+        color: #fff;
+        font-size: 0.9rem;
+        vertical-align: bottom;
+        border: 1px solid var(--red);
+    }
+
+    .pricing__corner {
+        text-align: left;
+        white-space: nowrap;
+    }
+
+    .pricing__freq {
+        display: block;
+        white-space: nowrap;
+    }
+
+    .pricing__freq-note {
+        display: block;
+        font-weight: 400;
+        font-size: 0.75rem;
+        opacity: 0.85;
+    }
+
+    .pricing tbody tr:nth-child(even) {
+        background: var(--surface-muted);
+    }
+
+    .pricing__size {
+        display: table-cell;
+        padding: 0.6rem 0.75rem;
+        background: none;
+        color: var(--ink);
+        border: 1px solid var(--line);
+        white-space: nowrap;
+    }
+
+    .pricing__size::after {
+        content: none;
+    }
+
+    .pricing__cell {
+        display: table-cell;
+        padding: 0.6rem 0.75rem;
+        border: 1px solid var(--line);
+        text-align: right;
+        white-space: nowrap;
+    }
+
+    .pricing__cell::before {
+        content: none;
+    }
+}
+
+@media (min-width: 56em) { /* 900px */
+    :root {
+        --per-view: 5;
+    }
+
+    .gallery {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .cards {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .cards--two {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .checklist {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    /* Навігація в один рядок, без «Меню» */
+    .nav {
+        order: 0;
+        width: auto;
+    }
+
+    .nav__toggle {
+        display: none;
+    }
+
+    /* Розкриваємо вміст <details> назавжди: перше правило — для нових браузерів
+       (::details-content), друге — для тих, що ховають вміст через слот. */
+    .nav::details-content {
+        content-visibility: visible;
+        block-size: auto;
+    }
+
+    .nav__panel {
+        display: block !important;
+    }
+
+    .nav__list {
+        flex-direction: row;
+        gap: 1.1rem;
+        margin: 0;
+    }
+
+    .nav__link {
+        padding: 0;
+        border: none;
+        font-size: 0.95rem;
+    }
+
+    .brand__mark {
+        width: 180px;
+    }
+
+    .hero__lead {
+        font-size: 1.2rem;
+    }
+}
+
+@media (min-width: 75em) { /* 1200px */
+    :root {
+        --per-view: 6;
+        --section-y: 4.5rem;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+
+    .carousel__track {
+        scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+        transition-duration: 0.01ms !important;
+        animation-duration: 0.01ms !important;
+    }
+}
+
+@media print {
+    .site-header,
+    .hero__actions,
+    .carousel__controls,
+    .prices__cta,
+    .skip-link {
+        display: none;
+    }
+}
