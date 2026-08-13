@@ -4,23 +4,19 @@ declare(strict_types=1);
 
 defined('KILIMOK') || exit;
 
-/** @var list<int> $frequencies */
-$frequencies = $prices['exchangesPerWeek'];
-/** @var array<int,int> $perMonth */
-$perMonth = $prices['exchangesPerMonth'];
+/** @var list<int> $frequencies обмінів у місяць */
+$frequencies = $prices['exchangesPerMonth'];
+/** @var array<int,string> $freqLabel */
+$freqLabel = $prices['frequencyLabel'];
 
-/** «12 обмінів у місяць» — з правильним відмінком, як у легенді листівки. */
-$monthLabel = static function (int $freq) use ($perMonth): string {
-    $count = $perMonth[$freq];
-
+/** «12 обмінів у місяць» — з правильним відмінком. */
+$monthLabel = static function (int $count): string {
     return $count . "\u{00A0}" . plural($count, 'обмін', 'обміни', 'обмінів') . ' у місяць';
 };
 
 /** Стисла версія для карток на мобільному: «2× на тиждень · 8 обмінів/міс». */
-$shortLabel = static function (int $freq) use ($perMonth): string {
-    $count = $perMonth[$freq];
-
-    return $freq . "×\u{00A0}на тиждень · " . $count . "\u{00A0}"
+$shortLabel = static function (int $count) use ($freqLabel): string {
+    return $freqLabel[$count] . ' · ' . $count . "\u{00A0}"
         . plural($count, 'обмін', 'обміни', 'обмінів') . '/міс';
 };
 
@@ -40,10 +36,10 @@ $shortLabel = static function (int $freq) use ($perMonth): string {
                 <thead>
                     <tr>
                         <th scope="col" class="pricing__corner">Розмір килима, см</th>
-                        <?php foreach ($frequencies as $freq): ?>
+                        <?php foreach ($frequencies as $count): ?>
                             <th scope="col">
-                                <span class="pricing__freq"><?= e((string) $freq) ?>×&nbsp;на тиждень</span>
-                                <span class="pricing__freq-note"><?= e($monthLabel($freq)) ?></span>
+                                <span class="pricing__freq"><?= e($freqLabel[$count]) ?></span>
+                                <span class="pricing__freq-note"><?= e($monthLabel($count)) ?></span>
                             </th>
                         <?php endforeach; ?>
                     </tr>
@@ -52,10 +48,10 @@ $shortLabel = static function (int $freq) use ($perMonth): string {
                     <?php foreach ($prices['sizes'] as $size): ?>
                         <tr>
                             <th scope="row" class="pricing__size"><?= e($size->label()) ?></th>
-                            <?php foreach ($frequencies as $freq): ?>
-                                <?php $value = $size->priceFor($freq); ?>
+                            <?php foreach ($frequencies as $count): ?>
+                                <?php $value = $size->priceFor($count); ?>
                                 <td class="pricing__cell"
-                                    data-label="<?= e($shortLabel($freq)) ?>">
+                                    data-label="<?= e($shortLabel($count)) ?>">
                                     <?= $value === null ? '—' : e(price($value)) ?>
                                 </td>
                             <?php endforeach; ?>

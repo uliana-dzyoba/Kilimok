@@ -5,27 +5,30 @@ declare(strict_types=1);
 defined('KILIMOK') || exit;
 
 /**
- * Один розмір килима та його місячна вартість за кількістю обмінів на тиждень.
+ * Один розмір килима та його місячна вартість за кількістю обмінів на місяць.
  */
 final readonly class MatSize
 {
     /**
-     * @param array<int,int> $monthlyPrice обмінів на тиждень => грн за місяць
+     * @param array<int,int> $monthlyPrice обмінів на місяць => грн за місяць
      */
     public function __construct(
         public int $widthCm,
         public int $lengthCm,
         public array $monthlyPrice,
+        public ?string $altLabel = null,
     ) {}
 
     public function label(): string
     {
-        return $this->widthCm . ' × ' . $this->lengthCm;
+        $base = $this->widthCm . ' × ' . $this->lengthCm;
+
+        return $this->altLabel === null ? $base : $base . ' (' . $this->altLabel . ')';
     }
 
-    public function priceFor(int $exchangesPerWeek): ?int
+    public function priceFor(int $exchangesPerMonth): ?int
     {
-        return $this->monthlyPrice[$exchangesPerWeek] ?? null;
+        return $this->monthlyPrice[$exchangesPerMonth] ?? null;
     }
 }
 

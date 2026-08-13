@@ -36,5 +36,6 @@ $clients = require __DIR__ . '/data/clients.php';
 <?php include __DIR__ . '/partials/footer.php'; ?>
 
 <script src="<?= e(asset('assets/js/carousel.js')) ?>" defer></script>
+<script src="<?= e(asset('assets/js/modal.js')) ?>" defer></script>
 </body>
 </html>

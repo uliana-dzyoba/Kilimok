@@ -341,6 +341,108 @@ a {
     color: var(--ink-soft);
 }
 
+.pictogram__trigger {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.4rem;
+    width: 100%;
+    padding: 0;
+    border: none;
+    background: none;
+    font: inherit;
+    color: inherit;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.pictogram__trigger:hover .pictogram__label,
+.pictogram__trigger:focus-visible .pictogram__label {
+    color: var(--red);
+}
+
+.pictogram__trigger:focus-visible {
+    outline: 2px solid var(--red);
+    outline-offset: 3px;
+    border-radius: var(--radius);
+}
+
+/* --- Модальні вікна ------------------------------------------------------ */
+
+.modal {
+    width: min(640px, calc(100% - 2rem));
+    max-height: min(85vh, 720px);
+    margin: auto;
+    padding: 0;
+    border: none;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    overflow: hidden;
+}
+
+.modal::backdrop {
+    background: rgb(31 28 27 / 55%);
+}
+
+.modal__panel {
+    display: flex;
+    flex-direction: column;
+    max-height: min(85vh, 720px);
+}
+
+.modal__head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--gap);
+    padding: 1rem 1.25rem;
+    border-bottom: 1px solid var(--line);
+}
+
+.modal__title {
+    margin: 0;
+    font-size: 1.15rem;
+}
+
+.modal__close {
+    flex: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.25rem;
+    height: 2.25rem;
+    border: 1px solid var(--line);
+    border-radius: 50%;
+    background: var(--surface);
+    font-size: 1.4rem;
+    line-height: 1;
+    color: var(--ink-soft);
+    cursor: pointer;
+}
+
+.modal__close:hover,
+.modal__close:focus-visible {
+    border-color: var(--red);
+    color: var(--red-dark);
+}
+
+.modal__body {
+    padding: 1.25rem;
+    overflow-y: auto;
+}
+
+.modal__image {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: calc(var(--radius) - 4px);
+}
+
+.modal__text {
+    margin: 0;
+    color: var(--ink-soft);
+}
+
 /* --- Картки ------------------------------------------------------------ */
 
 .cards {
