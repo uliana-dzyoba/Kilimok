@@ -1,7 +1,8 @@
 /**
- * Карусель логотипів. Розкладку (3–6 логотипів у слайді) задає CSS через --per-view;
- * скрипт лише додає кнопки, крапки й автопрокрутку. Без JS трек залишається
- * горизонтально прокручуваним списком.
+ * Карусель (логотипи клієнтів, галерея). Розкладку (скільки елементів у слайді) задає
+ * CSS через --per-view; скрипт лише додає кнопки, крапки й автопрокрутку. Інтервал
+ * автопрокрутки можна змінити атрибутом data-carousel-interval (мс). Без JS трек
+ * залишається горизонтально прокручуваним списком.
  */
 (function () {
     'use strict';
@@ -34,6 +35,7 @@
 
         var timer = null;
         var pageCount = 1;
+        var interval = Number(root.dataset.carouselInterval) || AUTOPLAY_MS;
 
         function perView() {
             var value = parseInt(getComputedStyle(root).getPropertyValue('--per-view'), 10);
@@ -115,7 +117,7 @@
 
             timer = window.setInterval(function () {
                 step(1);
-            }, AUTOPLAY_MS);
+            }, interval);
         }
 
         prev.addEventListener('click', function () {

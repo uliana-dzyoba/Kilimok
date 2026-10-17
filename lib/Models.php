@@ -33,14 +33,13 @@ final readonly class MatSize
 }
 
 /**
- * Фото у галереї. Наразі — згенеровані плейсхолдери у assets/img/gallery/.
+ * Фото у галереї (assets/img/gallery/).
  */
 final readonly class GalleryItem
 {
     public function __construct(
         public string $src,
         public string $alt,
-        public string $caption,
     ) {}
 }
 
