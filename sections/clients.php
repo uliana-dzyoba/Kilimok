@@ -9,7 +9,7 @@ defined('KILIMOK') || exit;
     <div class="container">
         <h2 class="section__title">Нам довіряють</h2>
         <p class="section__lead">
-            Мережі банків, магазинів, аптек, ресторанів, готелі та офіси.
+            ТРЦ, магазини, банки, ресторани, медичні заклади, автосалони, готелі та офіси компаній.
         </p>
 
         <?php if ($clients !== []): ?>
@@ -19,10 +19,16 @@ defined('KILIMOK') || exit;
                     aria-label="Список логотипів клієнтів">
                     <?php foreach ($clients as $logo): ?>
                         <li class="carousel__item">
-                            <img class="carousel__logo"
-                                 src="<?= e(asset($logo->src)) ?>"
-                                 alt="<?= e($logo->name) ?>"
-                                 width="240" height="160" loading="lazy" decoding="async">
+                            <?php if ($logo->src !== null): ?>
+                                <img class="carousel__logo"
+                                     src="<?= e(asset($logo->src)) ?>"
+                                     alt="<?= e($logo->name) ?>"
+                                     width="240" height="160" loading="lazy" decoding="async">
+                            <?php else: ?>
+                                <div class="carousel__logo carousel__logo--placeholder">
+                                    <span class="carousel__name"><?= e($logo->name) ?></span>
+                                </div>
+                            <?php endif; ?>
                         </li>
                     <?php endforeach; ?>
                 </ul>

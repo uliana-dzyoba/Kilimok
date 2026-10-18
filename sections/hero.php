@@ -21,9 +21,12 @@ $pictograms = [
             Привозимо, міняємо за графіком та перемо власними силами.
         </p>
         <div class="hero__actions">
-            <a class="btn btn--primary" href="<?= e(tel_href($company['phones'][0])) ?>">
-                Зателефонувати: <span class="nowrap"><?= e($company['phones'][0]) ?></span>
-            </a>
+            <span class="btn btn--primary">Зателефонувати:</span>
+            <?php foreach ($company['phones'] as $phone): ?>
+                <a class="btn btn--primary" href="<?= e(tel_href($phone)) ?>">
+                    <span class="nowrap"><?= e($phone) ?></span>
+                </a>
+            <?php endforeach; ?>
             <a class="btn btn--ghost" href="#prices">Дивитись ціни</a>
         </div>
 

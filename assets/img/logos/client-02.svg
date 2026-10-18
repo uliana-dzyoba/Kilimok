@@ -1,8 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 160" width="240" height="160" role="img" aria-label="Логотип клієнта 2">
-  <rect width="240" height="160" fill="#ffffff"/>
-  <rect x="12" y="12" width="216" height="136" rx="8" fill="#f2eeec" stroke="#ddd5d1" stroke-width="2" stroke-dasharray="7 6"/>
-  <circle cx="70" cy="80" r="26" fill="none" stroke="#b23029" stroke-width="5" opacity="0.55"/>
-  <path d="M52 92 L70 62 L88 92 Z" fill="#b23029" opacity="0.35"/>
-  <text x="112" y="74" font-family="system-ui, Arial, sans-serif" font-size="19" font-weight="700" fill="#4a4542" letter-spacing="1">КЛІЄНТ 2</text>
-  <text x="112" y="98" font-family="system-ui, Arial, sans-serif" font-size="13" fill="#8b8582">Банк</text>
-</svg>

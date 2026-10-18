@@ -68,9 +68,12 @@ $shortLabel = static function (int $count) use ($freqLabel): string {
         </ul>
 
         <p class="prices__cta">
-            <a class="btn btn--primary" href="<?= e(tel_href($company['phones'][0])) ?>">
-                Обговорити умови: <span class="nowrap"><?= e($company['phones'][0]) ?></span>
-            </a>
+            <span class="btn btn--primary">Замовити послугу:</span>
+            <?php foreach ($company['phones'] as $phone): ?>
+                <a class="btn btn--primary" href="<?= e(tel_href($phone)) ?>">
+                    <span class="nowrap"><?= e($phone) ?></span>
+                </a>
+            <?php endforeach; ?>
         </p>
     </div>
 </section>

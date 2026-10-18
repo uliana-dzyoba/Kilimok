@@ -36,8 +36,10 @@ $nav = [
             </nav>
         </details>
 
-        <a class="btn btn--phone" href="<?= e(tel_href($company['phones'][0])) ?>">
-            <?= e($company['phones'][0]) ?>
-        </a>
+        <div class="header__phones">
+            <?php foreach ($company['phones'] as $phone): ?>
+                <a class="btn btn--phone" href="<?= e(tel_href($phone)) ?>"><?= e($phone) ?></a>
+            <?php endforeach; ?>
+        </div>
     </div>
 </header>

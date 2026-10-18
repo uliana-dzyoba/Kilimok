@@ -43,6 +43,13 @@
         }
 
         function currentPage() {
+            // Останній слайд зазвичай неповний, тож трек упирається в кінець раніше,
+            // ніж scrollLeft дійде до page * clientWidth — вважаємо кінець останнім слайдом.
+            var maxScroll = track.scrollWidth - track.clientWidth;
+            if (maxScroll > 0 && track.scrollLeft >= maxScroll - 1) {
+                return pageCount - 1;
+            }
+
             var page = Math.round(track.scrollLeft / Math.max(track.clientWidth, 1));
             return Math.min(Math.max(page, 0), pageCount - 1);
         }

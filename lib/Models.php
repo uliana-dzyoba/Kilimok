@@ -48,8 +48,11 @@ final readonly class GalleryItem
  */
 final readonly class ClientLogo
 {
+    /**
+     * @param ?string $src шлях до логотипа; null — показується плейсхолдер з назвою
+     */
     public function __construct(
-        public string $src,
         public string $name,
+        public ?string $src = null,
     ) {}
 }
