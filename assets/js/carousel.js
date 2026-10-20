@@ -8,6 +8,10 @@
     'use strict';
 
     var AUTOPLAY_MS = 4000;
+    var EN = document.documentElement.lang === 'en';
+    var TEXT = EN
+        ? { prev: 'Previous slide', next: 'Next slide', slide: 'Slide %1 of %2' }
+        : { prev: 'Попередні логотипи клієнтів', next: 'Наступні логотипи клієнтів', slide: 'Слайд %1 з %2' };
     var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
 
     function initCarousel(root) {
@@ -24,8 +28,8 @@
         var controls = document.createElement('div');
         controls.className = 'carousel__controls';
 
-        var prev = makeButton('‹', 'Попередні логотипи клієнтів');
-        var next = makeButton('›', 'Наступні логотипи клієнтів');
+        var prev = makeButton('‹', TEXT.prev);
+        var next = makeButton('›', TEXT.next);
         var dots = document.createElement('ul');
         dots.className = 'carousel__dots';
 
@@ -76,7 +80,7 @@
                 dot.type = 'button';
                 dot.className = 'carousel__dot';
                 dot.dataset.page = String(i);
-                dot.setAttribute('aria-label', 'Слайд ' + (i + 1) + ' з ' + pageCount);
+                dot.setAttribute('aria-label', TEXT.slide.replace('%1', String(i + 1)).replace('%2', String(pageCount)));
                 li.append(dot);
                 dots.append(li);
             }

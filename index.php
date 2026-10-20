@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 define('KILIMOK', true);
+defined('SITE_LANG') || define('SITE_LANG', 'uk');
 
 require __DIR__ . '/lib/bootstrap.php';
 
@@ -17,10 +18,10 @@ $clients = require __DIR__ . '/data/clients.php';
 
 ?>
 <!DOCTYPE html>
-<html lang="uk">
+<html lang="<?= e(SITE_LANG) ?>">
 <?php include __DIR__ . '/partials/head.php'; ?>
 <body>
-<a class="skip-link" href="#main">Перейти до вмісту</a>
+<a class="skip-link" href="#main"><?= e(t('Перейти до вмісту', 'Skip to content')) ?></a>
 <?php include __DIR__ . '/partials/header.php'; ?>
 
 <main id="main">

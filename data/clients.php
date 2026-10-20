@@ -8,41 +8,42 @@ defined('KILIMOK') || exit;
  * Клієнти для каруселі (групи — за видами закладів, порядок зберігається).
  * Логотипи лежать у assets/img/logos/<файл>.png — полотно 480×320 (3:2), прозорий фон,
  * логотип по центру з полями. Якщо файлу не вказано (null), показується плейсхолдер з назвою.
+ * Назва клієнта — це alt логотипа, тому українські назви мають англійський варіант через t().
  */
 $groups = [
     'ТРЦ' => [
-        'Блокбастер' => 'blockbuster',
-        'Променада центр' => 'promenada',
+        t('Блокбастер', 'Blockbuster') => 'blockbuster',
+        t('Променада центр', 'Promenada Center') => 'promenada',
     ],
     'Магазини' => [
         'THRASH!ТРАШ!' => 'thrash',
-        'МегаМаркет' => 'megamarket',
-        'Велмарт' => 'velmart',
+        t('МегаМаркет', 'MegaMarket') => 'megamarket',
+        t('Велмарт', 'Velmart') => 'velmart',
         'Karl Lagerfeld' => 'karl-lagerfeld',
         'HUGO' => 'hugo',
         'Levi’s' => 'levis',
         'Riot Division' => 'riot-division',
-        'Територія мінімальних цін' => 'termincin',
+        t('Територія мінімальних цін', 'Territory of Minimum Prices') => 'termincin',
         'EconomClass' => 'economclass',
     ],
     'Банки' => [
         'Raiffeisen Bank' => 'raiffeisen',
-        'Банк Кредит Дніпро' => 'credit-dnipro',
-        'Європейський Промисловий Банк' => 'europrombank',
+        t('Банк Кредит Дніпро', 'Bank Credit Dnipro') => 'credit-dnipro',
+        t('Європейський Промисловий Банк', 'European Industrial Bank') => 'europrombank',
     ],
     'Ресторани' => [
         'Lviv Croissants' => 'lviv-croissants',
         'Cafeboutique' => 'cafeboutique',
     ],
     'Мед заклади' => [
-        'Сінево' => 'synevo',
+        t('Сінево', 'Synevo') => 'synevo',
         'CSD LAB' => 'csd-lab',
-        'IMD медична лабораторія' => 'imd',
-        'Оберіг' => 'oberig',
-        'Гармонія здоров’я' => 'harmony-health',
+        t('IMD медична лабораторія', 'IMD Medical Laboratory') => 'imd',
+        t('Оберіг', 'Oberig') => 'oberig',
+        t('Гармонія здоров’я', 'Harmony of Health') => 'harmony-health',
         'OCHI CLINIC' => 'ochi-clinic',
-        'Файна Клініка' => 'fajna-clinic',
-        'Genesis ветеринарний шпиталь' => 'genesis',
+        t('Файна Клініка', 'Fajna Clinic') => 'fajna-clinic',
+        t('Genesis ветеринарний шпиталь', 'Genesis Veterinary Hospital') => 'genesis',
     ],
     'Автосалони' => [
         'Hyundai' => 'hyundai',

@@ -10,14 +10,17 @@ const GALLERY_PER_SLIDE = 6;
 ?>
 <section class="section section--muted" id="gallery">
     <div class="container">
-        <h2 class="section__title">Галерея</h2>
-        <p class="section__lead">Як це виглядає на об'єктах наших замовників.</p>
+        <h2 class="section__title"><?= e(t('Галерея', 'Gallery')) ?></h2>
+        <p class="section__lead">
+            <?= e(t('Як це виглядає на об\'єктах наших замовників.', 'How it looks at our clients\' premises.')) ?>
+        </p>
 
         <?php if ($gallery !== []): ?>
             <div class="carousel carousel--gallery" data-carousel data-carousel-interval="6000"
-                 role="group" aria-roledescription="карусель" aria-label="Фото з об'єктів">
+                 role="group" aria-roledescription="<?= e(t('карусель', 'carousel')) ?>"
+                 aria-label="<?= e(t('Фото з об\'єктів', 'Photos from client premises')) ?>">
                 <ul class="carousel__track" data-carousel-track tabindex="0"
-                    aria-label="Слайди з фото">
+                    aria-label="<?= e(t('Слайди з фото', 'Photo slides')) ?>">
                     <?php foreach (array_chunk($gallery, GALLERY_PER_SLIDE) as $slide): ?>
                         <li class="carousel__item">
                             <ul class="gallery">

@@ -131,9 +131,21 @@ a {
     display: block;
 }
 
+/* Мобільна шапка у два рядки: лого + мова + «Меню», під ними контакти.
+   Розкрите меню випадає під шапкою на всю ширину. */
 .nav {
-    order: 3;
-    width: 100%;
+    order: 2;
+}
+
+.nav__panel {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    padding-inline: var(--gap);
+    background: #fff;
+    border-bottom: 1px solid var(--line);
+    box-shadow: 0 8px 16px rgb(0 0 0 / 8%);
 }
 
 .nav__toggle {
@@ -197,6 +209,24 @@ a {
     color: var(--red);
 }
 
+/* Перемикач мови (UA / EN) */
+.lang-switch {
+    order: 1;
+    padding: 0.35rem 0.6rem;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--ink-soft);
+    text-decoration: none;
+}
+
+.lang-switch:hover,
+.lang-switch:focus-visible {
+    border-color: var(--red);
+    color: var(--red);
+}
+
 /* --- Кнопки ------------------------------------------------------------ */
 
 .btn {
@@ -211,6 +241,10 @@ a {
     line-height: 1.2;
     text-align: center;
     text-decoration: none;
+}
+
+/* Hover/cursor only for interactive elements, not for <span> labels */
+.btn:is(a, button) {
     cursor: pointer;
 }
 
@@ -220,8 +254,8 @@ a {
     color: #fff;
 }
 
-.btn--primary:hover,
-.btn--primary:focus-visible {
+.btn--primary:is(a, button):hover,
+.btn--primary:is(a, button):focus-visible {
     background: var(--red-dark);
     border-color: var(--red-dark);
 }
@@ -232,8 +266,8 @@ a {
     background: var(--surface);
 }
 
-.btn--ghost:hover,
-.btn--ghost:focus-visible {
+.btn--ghost:is(a, button):hover,
+.btn--ghost:is(a, button):focus-visible {
     border-color: var(--red);
     color: var(--red-dark);
 }
@@ -261,9 +295,12 @@ a {
 }
 
 .section__lead {
-    max-width: 62ch;
     font-size: 1.05rem;
     color: var(--ink-soft);
+}
+
+.section__lead--wrap {
+    max-width: 72ch;
 }
 
 .section__text {
@@ -322,7 +359,7 @@ a {
     align-items: center;
     gap: 0.4rem;
     padding: 0.9rem 0.5rem;
-    background: var(--surface);
+    background: #e6e3e1;
     border: 1px solid var(--line);
     border-radius: var(--radius);
     box-shadow: var(--shadow);
@@ -1017,6 +1054,15 @@ a {
 
     .nav__panel {
         display: block !important;
+        position: static;
+        padding: 0;
+        background: none;
+        border: none;
+        box-shadow: none;
+    }
+
+    .lang-switch {
+        order: 0;
     }
 
     .nav__list {
@@ -1037,6 +1083,37 @@ a {
 
     .hero__lead {
         font-size: 1.2rem;
+    }
+}
+
+@media (min-width: 68em) { /* 1088px */
+    /* Телефони одне під одним, щоб шапка вміщалася в один рядок;
+       вужче — вони переносяться окремим рядком під меню. */
+    .header__phones {
+        flex-direction: column;
+        flex-wrap: nowrap;
+        gap: 0.3rem;
+    }
+
+    .header__phones .btn--phone {
+        padding: 0.3rem 0.7rem;
+        font-size: 0.85rem;
+    }
+
+    /* Іконки теж стовпчиком — поруч із номерами, щоб не розширювати шапку. */
+    .header__contacts .messengers {
+        flex-direction: column;
+        gap: 0.3rem;
+    }
+
+    .header__contacts .messenger {
+        width: 1.75rem;
+        height: 1.75rem;
+    }
+
+    .header__contacts .messenger__icon {
+        width: 1rem;
+        height: 1rem;
     }
 }
 
@@ -1079,4 +1156,104 @@ a {
     flex-wrap: wrap;
     gap: 0.4rem;
     justify-content: flex-end;
+}
+
+/* Телефони й месенджери поруч: іконки праворуч від стовпчика номерів. */
+.header__contacts {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+/* На мобільному контакти — окремим рядком під лого, номери в один рядок. */
+@media (max-width: 55.99em) {
+    .header__contacts {
+        order: 3;
+        width: 100%;
+        justify-content: space-between;
+        padding-bottom: 0.5rem;
+    }
+
+    .header__phones {
+        flex-wrap: nowrap;
+    }
+
+    .header__phones .btn--phone {
+        padding: 0.35rem 0.55rem;
+        font-size: 0.82rem;
+    }
+}
+
+/* Найвужчі екрани (~320px) — ще компактніше, щоб іконки не обрізалися. */
+@media (max-width: 22.49em) {
+    .header__contacts,
+    .header__phones,
+    .header__contacts .messengers {
+        gap: 0.25rem;
+    }
+
+    .header__phones .btn--phone {
+        padding: 0.3rem 0.4rem;
+        font-size: 0.76rem;
+    }
+
+    .header__contacts .messenger {
+        width: 1.75rem;
+        height: 1.75rem;
+    }
+}
+
+.header__contacts .messengers {
+    flex-shrink: 0;
+}
+
+/* --- Viber / Telegram -------------------------------------------------- */
+
+.messengers {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+}
+
+.messenger {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    color: #fff;
+    transition: filter 0.15s ease;
+}
+
+.messenger:hover,
+.messenger:focus-visible {
+    filter: brightness(0.88);
+}
+
+.messenger--viber {
+    background: #7360f2;
+}
+
+.messenger--telegram {
+    background: #229ed9;
+}
+
+.messenger__icon {
+    width: 1.15rem;
+    height: 1.15rem;
+}
+
+.messenger--telegram .messenger__icon {
+    margin-left: -0.1rem;
+}
+
+.prices__cta .messenger {
+    width: 2.75rem;
+    height: 2.75rem;
+}
+
+.prices__cta .messenger__icon {
+    width: 1.5rem;
+    height: 1.5rem;
 }

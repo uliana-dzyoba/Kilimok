@@ -5,29 +5,40 @@ declare(strict_types=1);
 defined('KILIMOK') || exit;
 
 $pictograms = [
-    ['id' => 'icon-mat', 'label' => 'Килими', 'modal' => 'modal-mats'],
-    ['id' => 'icon-wash', 'label' => 'Прання', 'modal' => 'modal-wash'],
-    ['id' => 'icon-truck', 'label' => 'Доставка', 'modal' => 'modal-delivery'],
-    ['id' => 'icon-rent', 'label' => 'Оренда', 'href' => '#prices'],
+    ['id' => 'icon-mat', 'label' => t('Килими', 'Mats'), 'modal' => 'modal-mats'],
+    ['id' => 'icon-wash', 'label' => t('Прання', 'Washing'), 'modal' => 'modal-wash'],
+    ['id' => 'icon-truck', 'label' => t('Доставка', 'Delivery'), 'modal' => 'modal-delivery'],
+    ['id' => 'icon-rent', 'label' => t('Оренда', 'Rental'), 'href' => '#prices'],
 ];
 
 ?>
 <section class="hero">
     <div class="container hero__inner">
-        <p class="hero__eyebrow">На українському ринку з <?= e((string) $company['since']) ?> року</p>
-        <h1 class="hero__title">Оренда змінних брудозахисних килимів</h1>
+        <p class="hero__eyebrow">
+            <?= e(t('На українському ринку з ', 'On the Ukrainian market since ')
+                . $company['since'] . t(' року', '')) ?>
+        </p>
+        <h1 class="hero__title">
+            <?= e(t('Оренда змінних брудозахисних килимів', 'Rental of replaceable dirt-trapping mats')) ?>
+        </h1>
         <p class="hero__lead">
-            Замість забрудненого килима ви отримуєте чистий і сухий — не купуючи його.
-            Привозимо, міняємо за графіком та перемо власними силами.
+            <?= e(t(
+                'Замовляючи послугу ви користуєтесь професійним брудоочисним килимом і повним сервісом з обслуговування. '
+                    . 'Замість забрудненого килима ви отримуєте чистий і сухий — не купуючи його. '
+                    . 'Привозимо, міняємо за графіком та перемо власними силами.',
+                'By ordering the service you get a professional dirt-removing mat and full maintenance service. '
+                    . 'Instead of a dirty mat, you get a clean and dry one — without buying it. '
+                    . 'We deliver, swap on schedule and do all the washing ourselves.',
+            )) ?>
         </p>
         <div class="hero__actions">
-            <span class="btn btn--primary">Зателефонувати:</span>
+            <span class="btn btn--primary"><?= e(t('Зателефонувати:', 'Call us:')) ?></span>
             <?php foreach ($company['phones'] as $phone): ?>
                 <a class="btn btn--primary" href="<?= e(tel_href($phone)) ?>">
                     <span class="nowrap"><?= e($phone) ?></span>
                 </a>
             <?php endforeach; ?>
-            <a class="btn btn--ghost" href="#prices">Дивитись ціни</a>
+            <a class="btn btn--ghost" href="#prices"><?= e(t('Дивитись ціни', 'See prices')) ?></a>
         </div>
 
         <ul class="pictograms">
@@ -58,12 +69,15 @@ $pictograms = [
 <dialog id="modal-mats" class="modal" aria-labelledby="modal-mats-title">
     <div class="modal__panel">
         <div class="modal__head">
-            <h2 class="modal__title" id="modal-mats-title">Килими</h2>
-            <button type="button" class="modal__close" data-modal-close aria-label="Закрити">&times;</button>
+            <h2 class="modal__title" id="modal-mats-title"><?= e(t('Килими', 'Mats')) ?></h2>
+            <button type="button" class="modal__close" data-modal-close aria-label="<?= e(t('Закрити', 'Close')) ?>">&times;</button>
         </div>
         <div class="modal__body">
             <img class="modal__image" src="<?= e(asset('assets/img/mats-overview.jpg')) ?>"
-                 alt="Приклади брудозахисних килимів: брендовані килими з логотипом на вході, текстура ворсу, килими у вестибюлі та ліфтовому холі, попереджувальні килими, вхідні групи магазинів"
+                 alt="<?= e(t(
+                     'Приклади брудозахисних килимів: брендовані килими з логотипом на вході, текстура ворсу, килими у вестибюлі та ліфтовому холі, попереджувальні килими, вхідні групи магазинів',
+                     'Examples of dirt-trapping mats: branded logo mats at entrances, pile texture, mats in a lobby and an elevator hall, warning mats, shop entrances',
+                 )) ?>"
                  loading="lazy">
         </div>
     </div>
@@ -72,13 +86,15 @@ $pictograms = [
 <dialog id="modal-wash" class="modal" aria-labelledby="modal-wash-title">
     <div class="modal__panel">
         <div class="modal__head">
-            <h2 class="modal__title" id="modal-wash-title">Прання</h2>
-            <button type="button" class="modal__close" data-modal-close aria-label="Закрити">&times;</button>
+            <h2 class="modal__title" id="modal-wash-title"><?= e(t('Прання', 'Washing')) ?></h2>
+            <button type="button" class="modal__close" data-modal-close aria-label="<?= e(t('Закрити', 'Close')) ?>">&times;</button>
         </div>
         <div class="modal__body">
             <p class="modal__text">
-                Перемо килими у власній пральні за графіком, узгодженим із замовником.
-                Це заглушка тексту — реальний опис послуги додамо пізніше.
+                <?= e(t(
+                    'Прання килимів підприємство здійснює власним обладнанням.',
+                    'The company washes the mats using its own equipment.',
+                )) ?>
             </p>
         </div>
     </div>
@@ -87,13 +103,15 @@ $pictograms = [
 <dialog id="modal-delivery" class="modal" aria-labelledby="modal-delivery-title">
     <div class="modal__panel">
         <div class="modal__head">
-            <h2 class="modal__title" id="modal-delivery-title">Доставка</h2>
-            <button type="button" class="modal__close" data-modal-close aria-label="Закрити">&times;</button>
+            <h2 class="modal__title" id="modal-delivery-title"><?= e(t('Доставка', 'Delivery')) ?></h2>
+            <button type="button" class="modal__close" data-modal-close aria-label="<?= e(t('Закрити', 'Close')) ?>">&times;</button>
         </div>
         <div class="modal__body">
             <p class="modal__text">
-                Доставляємо чисті килими та забираємо забруднені власним транспортом
-                по Києву та області. Це заглушка тексту — реальний опис послуги додамо пізніше.
+                <?= e(t(
+                    'Доставка килимів здійснюється власним транспортом.',
+                    'The mats are delivered by our own vehicles.',
+                )) ?>
             </p>
         </div>
     </div>

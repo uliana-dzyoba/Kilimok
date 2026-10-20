@@ -7,16 +7,20 @@ defined('KILIMOK') || exit;
 ?>
 <section class="section" id="clients">
     <div class="container">
-        <h2 class="section__title">Нам довіряють</h2>
+        <h2 class="section__title"><?= e(t('Нам довіряють', 'Trusted by')) ?></h2>
         <p class="section__lead">
-            ТРЦ, магазини, банки, ресторани, медичні заклади, автосалони, готелі та офіси компаній.
+            <?= e(t(
+                'ТРЦ, магазини, банки, ресторани, медичні заклади, автосалони, готелі та офіси компаній.',
+                'Shopping malls, shops, banks, restaurants, medical facilities, car dealerships, hotels and corporate offices.',
+            )) ?>
         </p>
 
         <?php if ($clients !== []): ?>
             <div class="carousel" data-carousel
-                 role="group" aria-roledescription="карусель" aria-label="Логотипи клієнтів">
+                 role="group" aria-roledescription="<?= e(t('карусель', 'carousel')) ?>"
+                 aria-label="<?= e(t('Логотипи клієнтів', 'Client logos')) ?>">
                 <ul class="carousel__track" data-carousel-track tabindex="0"
-                    aria-label="Список логотипів клієнтів">
+                    aria-label="<?= e(t('Список логотипів клієнтів', 'List of client logos')) ?>">
                     <?php foreach ($clients as $logo): ?>
                         <li class="carousel__item">
                             <?php if ($logo->src !== null): ?>

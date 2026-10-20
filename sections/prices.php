@@ -9,33 +9,42 @@ $frequencies = $prices['exchangesPerMonth'];
 /** @var array<int,string> $freqLabel */
 $freqLabel = $prices['frequencyLabel'];
 
-/** «12 обмінів у місяць» — з правильним відмінком. */
-$monthLabel = static function (int $count): string {
-    return $count . "\u{00A0}" . plural($count, 'обмін', 'обміни', 'обмінів') . ' у місяць';
+/** «12 обмінів» / «12 exchanges» — з правильним відмінком. */
+$exchanges = static function (int $count): string {
+    return $count . "\u{00A0}" . (SITE_LANG === 'en'
+        ? ($count === 1 ? 'exchange' : 'exchanges')
+        : plural($count, 'обмін', 'обміни', 'обмінів'));
+};
+
+/** «12 обмінів у місяць». */
+$monthLabel = static function (int $count) use ($exchanges): string {
+    return $exchanges($count) . t(' у місяць', ' per month');
 };
 
 /** Стисла версія для карток на мобільному: «2× на тиждень · 8 обмінів/міс». */
-$shortLabel = static function (int $count) use ($freqLabel): string {
-    return $freqLabel[$count] . ' · ' . $count . "\u{00A0}"
-        . plural($count, 'обмін', 'обміни', 'обмінів') . '/міс';
+$shortLabel = static function (int $count) use ($freqLabel, $exchanges): string {
+    return $freqLabel[$count] . ' · ' . $exchanges($count) . t('/міс', '/mo');
 };
 
 ?>
 <section class="section" id="prices">
     <div class="container">
-        <h2 class="section__title">Вартість послуг</h2>
+        <h2 class="section__title"><?= e(t('Вартість послуг', 'Prices')) ?></h2>
         <p class="section__lead">
-            Ціна вказана за місяць користування килимом залежно від кількості обмінів на тиждень.
+            <?= e(t(
+                'Ціна вказана за місяць користування килимом залежно від кількості обмінів на тиждень.',
+                'Prices are per month of mat use, depending on how often the mat is exchanged.',
+            )) ?>
         </p>
 
         <div class="table-wrap">
             <table class="pricing">
                 <caption class="pricing__caption">
-                    Вартість користування килимом, грн за місяць
+                    <?= e(t('Вартість користування килимом, грн за місяць', 'Mat rental price, UAH per month')) ?>
                 </caption>
                 <thead>
                     <tr>
-                        <th scope="col" class="pricing__corner">Розмір килима, см</th>
+                        <th scope="col" class="pricing__corner"><?= e(t('Розмір килима, см', 'Mat size, cm')) ?></th>
                         <?php foreach ($frequencies as $count): ?>
                             <th scope="col">
                                 <span class="pricing__freq"><?= e($freqLabel[$count]) ?></span>
@@ -68,12 +77,13 @@ $shortLabel = static function (int $count) use ($freqLabel): string {
         </ul>
 
         <p class="prices__cta">
-            <span class="btn btn--primary">Замовити послугу:</span>
+            <span class="btn btn--primary"><?= e(t('Замовити послугу:', 'Order now:')) ?></span>
             <?php foreach ($company['phones'] as $phone): ?>
                 <a class="btn btn--primary" href="<?= e(tel_href($phone)) ?>">
                     <span class="nowrap"><?= e($phone) ?></span>
                 </a>
             <?php endforeach; ?>
+            <?php include __DIR__ . '/../partials/messengers.php'; ?>
         </p>
     </div>
 </section>
